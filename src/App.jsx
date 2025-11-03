@@ -1,28 +1,32 @@
-import { useState } from 'react'
+import { useState } from 'react';
+import Navbar from './components/Navbar.jsx';
+import HeroBanner from './components/HeroBanner.jsx';
+import CategoryGrid from './components/CategoryGrid.jsx';
+import ListingsGrid from './components/ListingsGrid.jsx';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [filter, setFilter] = useState('');
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Vibe Coding Platform
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Your AI-powered development environment
-        </p>
-        <div className="text-center">
-          <button
-            onClick={() => setCount(count + 1)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-          >
-            Count is {count}
-          </button>
+    <div className="min-h-screen bg-white text-slate-900">
+      <Navbar />
+      <main>
+        <HeroBanner onSearch={(q) => setFilter(q)} />
+        <section id="explore" className="mx-auto max-w-7xl px-4">
+          <div className="rounded-2xl border border-slate-200 bg-gradient-to-r from-emerald-50 to-teal-50 p-6 text-slate-700">
+            <p className="text-sm">Search filter: <span className="font-medium text-emerald-700">{filter || 'All'}</span></p>
+          </div>
+        </section>
+        <CategoryGrid />
+        <ListingsGrid filter={filter} />
+      </main>
+      <footer className="border-t bg-white">
+        <div className="mx-auto max-w-7xl px-4 py-8 text-sm text-slate-600">
+          © {new Date().getFullYear()} Rentify. Find homes for rent with ease.
         </div>
-      </div>
+      </footer>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
